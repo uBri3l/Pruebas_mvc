@@ -21,8 +21,8 @@ class UserController
             //     creado_en: '2024-06-01 12:00:00'
             // );
             $repo = new BuscarUsuario();
-            $user = $repo->ejecutar($id);
-            View::render('users/buscar', ['usuario' => $user]);
+            $usuario = $repo->ejecutar($id);
+            View::render('users/buscar', ['usuario' => $usuario]);
         } catch (Exception $e) {
             View::render('mensaje/comun.php', [
                 'titulo' => 'Error al obtener el usuario',
