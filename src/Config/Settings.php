@@ -16,7 +16,7 @@ class Settings
     // const URL_BASE = URL_BASE_PATH . 'index.php?r=';
     const DB_HOST =  'db';
     const DB_PORT = '3306';  // Puerto estándar de MySQL, cambia según necesidades
-    const DB_NAME = '';
+    const DB_NAME = 'mvc_db';
     const DB_USER = 'root';
     const DB_PASSWORD = 'root';
     const DB_CHARSET = 'utf8mb4';

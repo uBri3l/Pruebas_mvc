@@ -11,13 +11,13 @@
     <?php
 
     use App\Config\Settings;
-
-    if (!empty($usuario)): ?>
+    
+    if (!empty($user)): ?>
         <p>Usuario encontrado.</p>
-        nombre: <?= $usuario->getNombre() ?><br>
-        email: <?= $usuario->getEmail() ?><br>
-        rol: <?= $usuario->getRol() ?><br>
-        creado en: <?= $usuario->getCreadoEn() ?><br>
+        nombre: <?= $user->getNombre() ?><br>
+        email: <?= $user->getEmail() ?><br>
+        rol: <?= $user->getRol() ?><br>
+        creado en: <?= $user->getCreadoEn() ?><br>
 
     <?php else: ?>
         <p>No se encontró el usuario.</p>
