@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Aplicacion\BuscarUsuario;
 use App\Core\View;
-use App\Dominio\User;
 use Exception;
 
 class UserController
@@ -12,7 +12,7 @@ class UserController
     {
         // View::render('usuario/listar', ['nombre' => $nombre]);
 
-        $usuario = [];
+        $repo = null;
         try {
             // $usuario = new User(
             //     nombre: 'Juan Perez',
@@ -20,8 +20,9 @@ class UserController
             //     rol: 'admin',
             //     creado_en: '2024-06-01 12:00:00'
             // );
-            $usuario = User::buscarUsuario($id);
-            View::render('users/buscar', ['usuario' => $usuario]);
+            $repo = new BuscarUsuario();
+            $user = $repo->ejecutar($id);
+            View::render('users/buscar', ['usuario' => $user]);
         } catch (Exception $e) {
             View::render('mensaje/comun.php', [
                 'titulo' => 'Error al obtener el usuario',
