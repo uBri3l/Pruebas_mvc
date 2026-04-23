@@ -12,7 +12,7 @@
     <?php if (!empty($mensaje)): ?>
         <p style="color: green;"><?= htmlspecialchars($mensaje) ?></p>
     <?php else: ?>
-        <form action="<?= \App\Config\Settings::getUrlBase() ?>usuarios/crear" method="POST">
+        <form action="<?= \App\Config\Settings::getUrlBase() ?>usuario/crear" method="POST">
             <label>Nombre:<br>
                 <input type="text" name="nombre" required>
             </label><br><br>
