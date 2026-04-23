@@ -4,15 +4,13 @@ namespace App\Controller;
 
 use ActualizarUsuario;
 use App\Aplicacion\BuscarUsuario;
+use App\Aplicacion\CrearUsuario;
 use App\Core\View;
+use App\Infraestructura\UsuarioRepositorio;
 use Exception;
 
 class UsuarioController
 {
-    public function nuevo()
-    {
-        require_once 'src/Vista/usuarios/nuevo.php';
-    }
     public function buscar($id)
     {
         $repo = null;
@@ -29,24 +27,31 @@ class UsuarioController
     }
     public function crear()
     {
-        $nombre = $_POST['nombre'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $rol = $_POST['rol'] ?? '';
-        $creado_en = $_POST['creado_en'] ?? '';
-        $repo = null;
-        try {
-            $repo = new \App\Infraestructura\UsuarioRepositorio(new \PDO('sqlite:database.sqlite'));
-            $crearUsuario = new \App\Aplicacion\CrearUsuario($repo);
-            $crearUsuario->ejecutar($nombre, $email, $rol, $creado_en);
-            View::render('mensaje/comun.php', [
-                'titulo' => 'Usuario creado',
-                'mensaje' => 'El usuario ha sido creado exitosamente.',
-            ]);
-        } catch (Exception $e) {
-            View::render('mensaje/comun.php', [
-                'titulo' => 'Error al crear el usuario',
-                'mensaje' => $e->getMessage(),
-            ]);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Lógica de creación
+            $nombre    = $_POST['nombre']     ?? '';
+            $email     = $_POST['email']      ?? '';
+            $rol       = $_POST['rol']        ?? '';
+            $creado_en = date('Y-m-d H:i:s');
+
+            try {
+                $repo          = new UsuarioRepositorio();
+                $crearUsuario  = new CrearUsuario($repo);
+                $crearUsuario->ejecutar($nombre, $email, $rol, $creado_en);
+
+                View::render('usuarios/crear', [
+                    'titulo'  => 'Usuario creado',
+                    'mensaje' => 'El usuario ha sido creado exitosamente.',
+                ]);
+            } catch (Exception $e) {
+                View::render('mensaje/comun.php', [
+                    'titulo'  => 'Error al crear el usuario',
+                    'mensaje' => $e->getMessage(),
+                ]);
+            }
+        } else {
+            // GET → solo mostrar el formulario vacío
+            View::render('usuarios/crear', []);
         }
     }
     public function editar($id)

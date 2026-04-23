@@ -17,10 +17,10 @@ class UsuarioRepositorio
             $pdo = Conexion::getPDOConnection();
             $sql = "INSERT INTO usuarios (nombre, email, rol, creado_en) VALUES (:nombre, :email, :rol, :creado_en)";
             $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':nombre', $usuario->getNombre(), PDO::PARAM_STR);
-            $stmt->bindParam(':email', $usuario->getEmail(), PDO::PARAM_STR);
-            $stmt->bindParam(':rol', $usuario->getRol(), PDO::PARAM_STR);
-            $stmt->bindParam(':creado_en', $usuario->getCreadoEn(), PDO::PARAM_STR);
+            $stmt->bindValue(':nombre', $usuario->getNombre(), PDO::PARAM_STR);
+            $stmt->bindValue(':email', $usuario->getEmail(), PDO::PARAM_STR);
+            $stmt->bindValue(':rol', $usuario->getRol(), PDO::PARAM_STR);
+            $stmt->bindValue(':creado_en', $usuario->getCreadoEn(), PDO::PARAM_STR);
             return $stmt->execute();
         } catch (PDOException $e) {
             error_log("Error al guardar usuario: " . $e->getMessage());
