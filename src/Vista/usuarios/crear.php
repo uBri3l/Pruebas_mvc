@@ -12,7 +12,7 @@
     <?php if (!empty($mensaje)): ?>
         <p style="color: green;"><?= htmlspecialchars($mensaje) ?></p>
     <?php else: ?>
-        <form action="<?= \App\Config\Settings::getUrlBase() ?>usuario/crear" method="POST">
+        <form action="<?= \App\Config\Settings::getUrlBase() ?>usuarios/crear" method="POST">
             <label>Nombre:<br>
                 <input type="text" name="nombre" required>
             </label><br><br>
@@ -23,8 +23,8 @@
 
             <label>Rol:<br>
                 <select name="rol">
-                    <option value="admin">Admin</option>
-                    <option value="usuario">Usuario</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Usuario">Usuario</option>
                 </select>
             </label><br><br>
 
