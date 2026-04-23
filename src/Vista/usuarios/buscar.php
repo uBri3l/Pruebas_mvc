@@ -12,17 +12,38 @@
 
     use App\Config\Settings;
 
-    if (!empty($usuario)): ?>
-        <p>Usuario encontrado.</p>
-        nombre: <?= $usuario->getNombre() ?><br>
-        email: <?= $usuario->getEmail() ?><br>
-        rol: <?= $usuario->getRol() ?><br>
-        creado en: <?= $usuario->getCreadoEn() ?><br>
+    if (!isset($usuario)): ?>
+        <form onsubmit="buscarUsuario(event)">
+            <label>ID del usuario:<br>
+                <input type="number" id="inputId" min="1" required>
+            </label><br><br>
+            <button type="submit">Buscar</button>
+        </form>
 
+        <script>
+            function buscarUsuario(e) {
+                e.preventDefault();
+                const id = document.getElementById('inputId').value;
+                window.location.href = '<?= Settings::getUrlBase() ?>usuario/buscar/' + id;
+            }
+        </script>
+
+        <p><a href="<?= Settings::getUrlBase() ?>">Volver al menú</a></p>
+
+    <?php elseif ($usuario !== false): ?>
+        <p>Usuario encontrado.</p>
+        nombre: <?= htmlspecialchars($usuario->getNombre()) ?><br>
+        email: <?= htmlspecialchars($usuario->getEmail()) ?><br>
+        rol: <?= htmlspecialchars($usuario->getRol()) ?><br>
+        creado en: <?= htmlspecialchars($usuario->getCreadoEn()) ?><br>
+
+        <p><a href="<?= Settings::getUrlBase() ?>usuario/buscar">Volver a la búsqueda</a></p>
     <?php else: ?>
         <p>No se encontró el usuario.</p>
+
+        <p><a href="<?= Settings::getUrlBase() ?>usuario/buscar">Volver a la búsqueda</a></p>
     <?php endif; ?>
-    <p><a href="<?= Settings::getUrlBase()  ?>">Volver al menú</a></p>
+
 </body>
 
 </html>

@@ -8,11 +8,14 @@
 
 <body>
     <h1>Crear Usuario</h1>
+    <?php
 
-    <?php if (!empty($mensaje)): ?>
+    use App\Config\Settings;
+
+    if (!empty($mensaje)): ?>
         <p style="color: green;"><?= htmlspecialchars($mensaje) ?></p>
     <?php else: ?>
-        <form action="<?= \App\Config\Settings::getUrlBase() ?>usuario/crear" method="POST">
+        <form action="<?= Settings::getUrlBase() ?>usuario/crear" method="POST">
             <label>Nombre:<br>
                 <input type="text" name="nombre" required>
             </label><br><br>
@@ -32,7 +35,7 @@
         </form>
     <?php endif; ?>
 
-    <p><a href="<?= \App\Config\Settings::getUrlBase() ?>">Volver al menú</a></p>
+    <p><a href="<?= Settings::getUrlBase() ?>">Volver al menú</a></p>
 </body>
 
 </html>

@@ -11,13 +11,18 @@ use Exception;
 
 class UsuarioController
 {
-    public function buscar($id)
+    public function buscar($id = null)
     {
-        $repo = null;
         try {
-            $repo = new BuscarUsuario();
-            $usuario = $repo->ejecutar($id);
-            View::render('usuarios/buscar', ['usuario' => $usuario]);
+
+            if ($id === null) {
+                View::render('usuarios/buscar', []);
+                return;
+            }
+            $repo = new UsuarioRepositorio();
+            $buscarUsuario = new BuscarUsuario($repo);
+            $usuario = $buscarUsuario->ejecutar((int)$id);
+            View::render('usuarios/buscar', ['usuario' => $usuario ?? false]);
         } catch (Exception $e) {
             View::render('mensaje/comun.php', [
                 'titulo' => 'Error al obtener el usuario',
