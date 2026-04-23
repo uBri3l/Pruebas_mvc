@@ -10,7 +10,6 @@ class BuscarUsuario
     public function __construct() {}
     public function ejecutar(int $id)
     {
-        // $user = UsuarioRepositorio::buscarUsuario($id);
         return UsuarioRepositorio::buscarUsuario($id);
     }
 }

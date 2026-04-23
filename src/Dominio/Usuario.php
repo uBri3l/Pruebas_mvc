@@ -2,7 +2,7 @@
 
 namespace App\Dominio;
 
-class User
+class Usuario
 {
     private int $id;
     private string $nombre;
@@ -18,9 +18,9 @@ class User
         $this->creado_en = $creado_en;
         $this->id = $id ?? 0;
     }
-    private static function arrayToUser(array $row): User
+    private static function arrayToUsuario(array $row): Usuario
     {
-        return new User(
+        return new Usuario(
             nombre: $row['nombre'],
             email: $row['email'],
             rol: $row['rol'],
