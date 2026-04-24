@@ -16,7 +16,7 @@ use App\Config\Settings; ?>
     <a href="<?= Settings::getUrlBase()  ?>autos/listar">listar Autos</a>
     <a href="<?= Settings::getUrlBase()  ?>productos/ver/5/verde">test</a>
     <p><a href="<?= Settings::getUrlBase() ?>usuario/buscar">Busqueda de Usuario</a></p>
-    <p><a href="<?= Settings::getUrlBase() ?>usuario/crear">Creacion de Usuario</a></p>
+    <p><a href="<?= Settings::getUrlBase() ?>usuario/nuevo">Creacion de Usuario</a></p>
 </body>
 
 </html>

@@ -3,19 +3,19 @@
 namespace App\Aplicacion;
 
 use App\Dominio\Usuario;
+use App\Infraestructura\UsuarioRepositorio;
 
 class CrearUsuario
 {
     private $repo;
 
-    public function __construct($repo)
+    public function __construct()
     {
-        $this->repo = $repo;
+        $this->repo = new UsuarioRepositorio();
     }
 
-    public function ejecutar($nombre, $email, $rol, $creado_en, $id = null)
+    public function ejecutar(Usuario $usuario)
     {
-        $usuario = new Usuario($nombre, $email, $rol, $creado_en, $id);
         return $this->repo->guardar($usuario);
     }
 }

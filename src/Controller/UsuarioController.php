@@ -6,6 +6,7 @@ use ActualizarUsuario;
 use App\Aplicacion\BuscarUsuario;
 use App\Aplicacion\CrearUsuario;
 use App\Core\View;
+use App\Dominio\Usuario;
 use App\Infraestructura\UsuarioRepositorio;
 use Exception;
 
@@ -40,9 +41,14 @@ class UsuarioController
             $creado_en = date('Y-m-d H:i:s');
 
             try {
-                $repo          = new UsuarioRepositorio();
-                $crearUsuario  = new CrearUsuario($repo);
-                $crearUsuario->ejecutar($nombre, $email, $rol, $creado_en);
+                $usuario = new Usuario(
+                    nombre: $nombre,
+                    email: $email,
+                    rol: $rol,
+                    creado_en: $creado_en
+                );
+                $crearUsuario  = new CrearUsuario();
+                $crearUsuario->ejecutar($usuario);
 
                 View::render('usuarios/crear', [
                     'titulo'  => 'Usuario creado',
@@ -55,8 +61,22 @@ class UsuarioController
                 ]);
             }
         } else {
-           
+
             View::render('usuarios/crear', []);
+        }
+    }
+    public function nuevo()
+    {
+        try {
+            View::render('usuarios/nuevo', [
+                'titulo' => 'Crear nuevo usuario',
+                'mensaje' => 'Complete el formulario para crear un nuevo usuario.',
+            ]);
+        } catch (Exception $e) {
+            View::render('mensaje/comun.php', [
+                'titulo' => 'Error al mostrar el formulario',
+                'mensaje' => $e->getMessage(),
+            ]);
         }
     }
     public function editar($id)
