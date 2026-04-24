@@ -1,16 +1,21 @@
 <?php
-Class ActualizarUsuario
+
+namespace App\Aplicacion;
+
+use App\Dominio\Usuario;
+use App\Infraestructura\UsuarioRepositorio;
+
+class ActualizarUsuario
 {
     private $repo;
 
-    public function __construct($repo)
+    public function __construct()
     {
-        $this->repo = $repo;
+        $this->repo = new UsuarioRepositorio();
     }
 
-    public function ejecutar($id, $nombre, $email, $rol, $creado_en)
+    public function ejecutar(Usuario $usuario)
     {
-        $usuario = new \App\Dominio\Usuario($nombre, $email, $rol, $creado_en, $id);
         return $this->repo->actualizar($usuario);
     }
 }

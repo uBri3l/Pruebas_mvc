@@ -39,7 +39,7 @@ class UsuarioRepositorio
             $pdo = Conexion::getPDOConnection();
             $sql = "SELECT id, nombre, email, rol, creado_en FROM usuarios WHERE id = :id";
             $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+            $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
             $stmt->execute();
             $row = $stmt->fetch(\PDO::FETCH_ASSOC);
             if ($row) {
@@ -60,13 +60,12 @@ class UsuarioRepositorio
         $stmt = null;
         try {
             $pdo = Conexion::getPDOConnection();
-            $sql = "UPDATE usuarios SET nombre = :nombre, email = :email, rol = :rol, creado_en = :creado_en WHERE id = :id";
+            $sql = "UPDATE usuarios SET nombre = :nombre, email = :email, rol = :rol, creado_en = NOW() WHERE id = :id";
             $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':nombre', $usuario->getNombre(), PDO::PARAM_STR);
-            $stmt->bindParam(':email', $usuario->getEmail(), PDO::PARAM_STR);
-            $stmt->bindParam(':rol', $usuario->getRol(), PDO::PARAM_STR);
-            $stmt->bindParam(':creado_en', $usuario->getCreadoEn(), PDO::PARAM_STR);
-            $stmt->bindParam(':id', $usuario->getId(), PDO::PARAM_INT);
+            $stmt->bindValue(':nombre', $usuario->getNombre(), PDO::PARAM_STR);
+            $stmt->bindValue(':email', $usuario->getEmail(), PDO::PARAM_STR);
+            $stmt->bindValue(':rol', $usuario->getRol(), PDO::PARAM_STR);
+            $stmt->bindValue(':id', $usuario->getId(), PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
             error_log("Error al actualizar usuario: " . $e->getMessage());

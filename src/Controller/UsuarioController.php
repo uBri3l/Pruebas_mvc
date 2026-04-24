@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use ActualizarUsuario;
+use App\Aplicacion\ActualizarUsuario;
 use App\Aplicacion\BuscarUsuario;
 use App\Aplicacion\CrearUsuario;
 use App\Core\View;
@@ -79,36 +79,72 @@ class UsuarioController
             ]);
         }
     }
-    public function editar($id)
+    public function editar($id = null)
     {
-        $repo = null;
+        if ($id === null) {
+            View::render('mensaje/comun.php', [
+                'titulo'  => 'Error',
+                'mensaje' => 'Debe especificar un ID de usuario.',
+            ]);
+            return;
+        }
+
         try {
-            $repo = new BuscarUsuario();
-            $usuario = $repo->ejecutar($id);
+            $repo    = new UsuarioRepositorio();
+            $buscar  = new BuscarUsuario();
+            $usuario = $buscar->ejecutar((int)$id);
+
+            if ($usuario === null) {
+                View::render('mensaje/comun.php', [
+                    'titulo'  => 'Error',
+                    'mensaje' => 'Usuario no encontrado.',
+                ]);
+                return;
+            }
+
             View::render('usuarios/editar', ['usuario' => $usuario]);
         } catch (Exception $e) {
             View::render('mensaje/comun.php', [
-                'titulo' => 'Error al obtener el usuario',
+                'titulo'  => 'Error',
                 'mensaje' => $e->getMessage(),
             ]);
         }
     }
-    public function actualizar($id)
+    public function actualizar($id = null)
     {
-        $nombre = $_POST['nombre'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $rol = $_POST['rol'] ?? '';
-        $creado_en = $_POST['creado_en'] ?? '';
-        $repo = null;
-        try {
-            return (new ActualizarUsuario($repo))->ejecutar($id, $nombre, $email, $rol, $creado_en);
+        if ($id === null || $_SERVER['REQUEST_METHOD'] !== 'POST') {
             View::render('mensaje/comun.php', [
-                'titulo' => 'Usuario actualizado',
+                'titulo'  => 'Error',
+                'mensaje' => 'Solicitud inválida.',
+            ]);
+            return;
+        }
+
+        try {
+            $nombre = $_POST['nombre'] ?? '';
+            $email  = $_POST['email']  ?? '';
+            $rol    = $_POST['rol']    ?? '';
+
+            $usuario = new Usuario(
+                nombre: $nombre,
+                email: $email,
+                rol: $rol,
+                creado_en: '',
+                id: (int)$id
+            );
+
+            $repo              = new UsuarioRepositorio();
+            $actualizarUsuario = new ActualizarUsuario();
+            $actualizarUsuario->ejecutar($usuario);
+
+            View::render('usuarios/actualizar', [
+                'titulo'  => 'Usuario actualizado',
                 'mensaje' => 'El usuario ha sido actualizado exitosamente.',
+                'id'      => $id,
             ]);
         } catch (Exception $e) {
             View::render('mensaje/comun.php', [
-                'titulo' => 'Error al actualizar el usuario',
+                'titulo'  => 'Error al actualizar el usuario',
                 'mensaje' => $e->getMessage(),
             ]);
         }
