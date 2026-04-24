@@ -32,10 +32,12 @@
 
     <?php elseif ($usuario !== false): ?>
         <p>Usuario encontrado.</p>
-        nombre: <?= htmlspecialchars($usuario->getNombre()) ?><br>
-        email: <?= htmlspecialchars($usuario->getEmail()) ?><br>
-        rol: <?= htmlspecialchars($usuario->getRol()) ?><br>
-        creado en: <?= htmlspecialchars($usuario->getCreadoEn()) ?><br>
+        Nombre: <?= htmlspecialchars($usuario->getNombre()) ?><br>
+        E-mail: <?= htmlspecialchars($usuario->getEmail()) ?><br>
+        Rol: <?= htmlspecialchars($usuario->getRol()) ?><br>
+        Creado en: <?= htmlspecialchars($usuario->getCreadoEn()) ?><br>
+
+        <p><a href="<?= \App\Config\Settings::getUrlBase() ?>usuario/editar/<?= ($usuario->getId()) ?>">Editar usuario</a></p>
 
         <p><a href="<?= Settings::getUrlBase() ?>usuario/buscar">Volver a la búsqueda</a></p>
     <?php else: ?>

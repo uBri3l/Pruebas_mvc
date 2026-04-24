@@ -1,3 +1,8 @@
+<?php
+
+use App\Config\Settings;
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,7 +14,7 @@
 <body>
     <h1><?= $titulo ?></h1>
     <p><?= $mensaje ?></p>
-    <p><a href="<?= BASE_URL ?>index.php">Volver al menú</a></p>
+    <p><a href="<?= Settings::getUrlBase() ?>">Volver al menú</a></p>
 </body>
 
 </html>

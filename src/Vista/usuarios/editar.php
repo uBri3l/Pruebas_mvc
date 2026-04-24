@@ -24,8 +24,10 @@
 
         <label>Rol:<br>
             <select name="rol">
-                <option value="admin" <?= $usuario->getRol() === 'admin' ? 'selected' : '' ?>>Admin</option>
-                <option value="user" <?= $usuario->getRol() === 'user'  ? 'selected' : '' ?>>User</option>
+                <option value="Admin" <?= $usuario->getRol() === 'Admin' ? 'selected' : '' ?>>Admin</option>
+                <option value="Asuario" <?= $usuario->getRol() === 'Usuario'  ? 'selected' : '' ?>>Usuario</option>
+                <option value="Gestor de base de datos" <?= $usuario->getRol() === 'Gestor de Base de Datos' ? 'selected' : '' ?>>Gestor de Base de Datos</option>
+                <option value="Tester" <?= $usuario->getRol() === 'Tester' ? 'selected' : '' ?>>Tester</option>
             </select>
         </label><br><br>
 

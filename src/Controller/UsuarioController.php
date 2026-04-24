@@ -133,7 +133,7 @@ class UsuarioController
                 id: (int)$id
             );
 
-            $repo              = new UsuarioRepositorio();
+            $repo = new UsuarioRepositorio();
             $actualizarUsuario = new ActualizarUsuario();
             $actualizarUsuario->ejecutar($usuario);
 
