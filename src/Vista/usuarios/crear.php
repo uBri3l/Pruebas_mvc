@@ -28,6 +28,8 @@
                 <select name="rol">
                     <option value="Admin">Admin</option>
                     <option value="Usuario">Usuario</option>
+                    <option value="Gestor de Base de Datos">Gestor de Base de Datos</option>
+                    <option value="Tester">Tester</option>
                 </select>
             </label><br><br>
 

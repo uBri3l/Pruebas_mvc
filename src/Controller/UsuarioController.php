@@ -55,7 +55,7 @@ class UsuarioController
                 ]);
             }
         } else {
-            // GET → solo mostrar el formulario vacío
+           
             View::render('usuarios/crear', []);
         }
     }
