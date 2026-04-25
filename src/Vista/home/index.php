@@ -11,10 +11,7 @@ use App\Config\Settings; ?>
 </head>
 
 <body>
-    <h1>index</h1>
-    <?= $nombre; ?>
-    <a href="<?= Settings::getUrlBase()  ?>autos/listar">listar Autos</a>
-    <a href="<?= Settings::getUrlBase()  ?>productos/ver/5/verde">test</a>
+    <h1>Gestor de Usuarios</h1>
     <p><a href="<?= Settings::getUrlBase() ?>usuario/buscar">Busqueda de Usuario</a></p>
     <p><a href="<?= Settings::getUrlBase() ?>usuario/nuevo">Creacion de Usuario</a></p>
 </body>
