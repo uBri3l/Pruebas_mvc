@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Aplicacion\ActualizarUsuario;
 use App\Aplicacion\BuscarUsuario;
 use App\Aplicacion\CrearUsuario;
+use App\Config\Settings;
 use App\Core\View;
 use App\Dominio\Usuario;
 use App\Infraestructura\UsuarioRepositorio;
@@ -14,6 +15,14 @@ class UsuarioController
 {
     public function buscar($id = null)
     {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id = $_POST['id'] ?? null;
+        header('Location: ' . Settings::getUrlBase() . 'usuario/buscar/' . (int)$id);
+        exit;
+        }
+
+        $id = $id ?? ($_GET['id'] ?? null);
+        
         try {
 
             if ($id === null) {

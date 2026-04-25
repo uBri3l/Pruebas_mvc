@@ -13,20 +13,12 @@
     use App\Config\Settings;
 
     if (!isset($usuario)): ?>
-        <form onsubmit="buscarUsuario(event)">
+        <form action="<?= Settings::getUrlBase() ?>usuario/buscar" method="POST">
             <label>ID del usuario:<br>
-                <input type="number" id="inputId" min="1" required>
+                <input type="number" name="id" min="1" required>
             </label><br><br>
             <button type="submit">Buscar</button>
         </form>
-
-        <script>
-            function buscarUsuario(e) {
-                e.preventDefault();
-                const id = document.getElementById('inputId').value;
-                window.location.href = '<?= Settings::getUrlBase() ?>usuario/buscar/' + id;
-            }
-        </script>
 
         <p><a href="<?= Settings::getUrlBase() ?>">Volver al menú</a></p>
 
@@ -37,13 +29,13 @@
         Rol: <?= htmlspecialchars($usuario->getRol()) ?><br>
         Creado en: <?= htmlspecialchars($usuario->getCreadoEn()) ?><br>
 
-        <p><a href="<?= \App\Config\Settings::getUrlBase() ?>usuario/editar/<?= ($usuario->getId()) ?>">Editar usuario</a></p>
-
+        <p><a href="<?= Settings::getUrlBase() ?>usuario/editar/<?= $usuario->getId() ?>">Editar usuario</a></p>
         <p><a href="<?= Settings::getUrlBase() ?>usuario/buscar">Volver a la búsqueda</a></p>
+
     <?php else: ?>
         <p>No se encontró el usuario.</p>
-
         <p><a href="<?= Settings::getUrlBase() ?>usuario/buscar">Volver a la búsqueda</a></p>
+
     <?php endif; ?>
 
 </body>
